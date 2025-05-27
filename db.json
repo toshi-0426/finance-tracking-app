@@ -63,6 +63,29 @@
       "description": "Restaurant with friends",
       "created_at": "2025-05-09T00:00:00",
       "id": 8
+    },
+    {
+      "type": "Expense",
+      "category": "Food",
+      "amount": 15,
+      "description": "Mcdonald's",
+      "created_at": "2025-05-25T00:00:00",
+      "id": 9
+    },
+    {
+      "type": "Expense",
+      "category": "Phone",
+      "amount": 35,
+      "description": "",
+      "created_at": "2025-05-26T00:00:00",
+      "id": 10
+    },
+    {
+      "type": "Income",
+      "amount": 1000,
+      "description": "",
+      "created_at": "2025-05-02T00:00:00",
+      "id": 11
     }
   ],
   "trend": [

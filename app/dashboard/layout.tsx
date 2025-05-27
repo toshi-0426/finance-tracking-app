@@ -4,8 +4,12 @@ import { ReactNode } from "react";
 
 
 export const metadata: Metadata = {
-  title: "Dashboard"   
+  title: {
+    default: "Dashboard",
+    template: "%s | Finance App",
+  }
 };
+
 
 export default function Layout({ children }: { children: ReactNode }){
     return (
