@@ -12,7 +12,7 @@ import { Inputs, TransactionSchema } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormError } from "@/components/form-error";
-import { purseTransctionListCache } from "@/lib/actions";
+import { createTransaction, purseTransctionListCache } from "@/lib/actions";
 
 
 type TransactionFormProps = {
@@ -59,27 +59,12 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
                 */
                 console.log(id);
             } else {
-                //await createTransaction(data); 
+                
                 console.log(data);
-                try{
-                    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/transactions`,{
-                        method: 'post',
-                        headers: {
-                            'Content-type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            ...data,
-                            created_at: `${data.created_at}T00:00:00`
-                        })
-                        }    
-                    );
-
-                } finally {
-                    console.log("successfully add transaciton into json file");
-                }
-
+                await createTransaction(data);
+                //console.log("successfully add transaciton into json file");
             }
-            await purseTransctionListCache()
+            //await purseTransctionListCache()
             router.push('/dashboard');
         } catch(error) {
             setLastError(error as Error);
