@@ -8,11 +8,10 @@ import { categories, types } from "@/lib/consts";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Inputs, TransactionSchema } from "@/lib/validation";
-//import { createTransaction, updateTransaction } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormError } from "@/components/form-error";
-import { createTransaction, purseTransctionListCache } from "@/lib/actions";
+import { createTransaction } from "@/lib/actions";
 
 
 type TransactionFormProps = {
@@ -47,6 +46,7 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
     const editing = Boolean(initialData);
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        console.log(data)
         setIsSaving(true);
         setLastError(null);
         try {
@@ -92,7 +92,7 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
                             }
                         }
                     })}>
-                        <option value="" hidden>Select</option>
+                        <option value="" hidden>Select a type</option>
                         {types.map(type => <option key={type}>{type}</option>)}
                     </Select>
                     <FormError error={errors.type}></FormError>
@@ -101,7 +101,7 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
                 <div>
                     <Label className="mb-1">Category</Label>
                     <Select defaultValue="" disabled={type !== 'Expense'} {...register("category")}>
-                        <option value="" disabled hidden>Select</option>
+                        <option value="" disabled hidden>Select a category</option>
                         {categories.map(category => <option key={category}>{category}</option>)}
                     </Select>
                     <FormError error={errors.category}></FormError>

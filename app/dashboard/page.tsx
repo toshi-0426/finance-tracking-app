@@ -6,31 +6,34 @@ import TrendFallback from "./components/trend-fallback";
 import Link from "next/link";
 import { CirclePlus } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
-import { createClient } from "@/lib/supabase/server";
+import { ErrorBoundary } from "react-error-boundary";
+import { types as trendTypes } from "@/lib/consts";
+import Range from "./components/range";
+//import { createClient } from "@/lib/supabase/server";
 
 export default async function Page() {
-    const supabase = await createClient();
-    console.log(await supabase.from('transactions').select());
+    
     return (
-        <>  
-            <section className="mb-8">
+        <div className="space-y-8">  
+
+            <section className="mb-8 flex justify-between items-center">
                 <h1 className="text-4xl font-semibold">Summary</h1>
+                <aside>
+                    <Range/>
+                </aside>
+
             </section>
 
-
             <section className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-                <Suspense fallback={<TrendFallback />}>
-                    <Trend type="Income" />
-                </Suspense>
-                <Suspense fallback={<TrendFallback />} >
-                    <Trend type="Expense" />
-                </Suspense>
-                <Suspense fallback={<TrendFallback />}>
-                    <Trend type="Investment" />
-                </Suspense>
-                <Suspense fallback={<TrendFallback />}>
-                    <Trend type="Saving" />
-                </Suspense>
+                {trendTypes.map(type => <ErrorBoundary 
+                    key={type}
+                    fallback={<div className="text-red-500">Cannot fetch {type} trend data</div>}
+                    >
+                    <Suspense fallback={<TrendFallback />}>
+                        <Trend type={type} />
+                    </Suspense>
+                </ErrorBoundary> )}
+                
             </section>
 
             <section className="flex justify-between items-center">
@@ -45,6 +48,6 @@ export default async function Page() {
             <Suspense fallback={<TransactionListFallback />}>
                 <TransactionList />
             </Suspense>
-        </>
+        </div>
     )
 }

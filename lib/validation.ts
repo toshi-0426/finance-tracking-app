@@ -25,6 +25,14 @@ export const TransactionSchema = z.object({
 }, {
   path: ["category"],
   message: "Category is required for Expense"
+}).refine((data) => {
+  if (data.type === 'Expense'){
+    return data.category !== undefined && categories.includes(data.category as TransactionCategory);
+  }
+  return true;
+}, {
+  path: ["category"],
+  message: "Category is required for Expense"
 })
 
 export type Inputs = z.infer<typeof TransactionSchema>;

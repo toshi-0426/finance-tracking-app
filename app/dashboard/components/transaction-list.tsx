@@ -1,7 +1,7 @@
 import Separator from "@/components/separator";
 import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
-import { Transaction } from "@/lib/consts";
+//import { Transaction } from "@/lib/consts";
 import { createClient } from "@/lib/supabase/server";
 import { groupAndSumTransactionsByDate } from "@/lib/utils";
 
@@ -24,9 +24,7 @@ export default async function TransactionList () {
         throw new Error('Failed to fetch transaction data');
     }
 
-    //const transactions: Transaction[] = await response.json();
     const groupedTransactions = groupAndSumTransactionsByDate(transactions ?? []);
-    //console.log(groupedTransactions);
 
     return (
         <section className="space-y-4">

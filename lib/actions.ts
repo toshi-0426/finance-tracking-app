@@ -11,6 +11,7 @@ export async function createTransaction(formData: Inputs) {
     if (!validated.success) {
         throw new Error('Invalid data form')
     }
+    
     console.log(validated);
     const supabase = await createClient();
     const { error } = await supabase.from('transactions').insert(validated.data);
