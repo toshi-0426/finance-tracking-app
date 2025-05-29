@@ -14,7 +14,7 @@ type TransactionItemRemoveButtonProps = {
 export default function TransactionItemRemoveButton({ id, onRemoved }: TransactionItemRemoveButtonProps) {
     const [loading, setLoading] = useState(false);
     const [conformed, setComformed] = useState(false);
-    console.log(id);
+    //console.log(id);
 
     const handleClick = async () => {
         if (!conformed) {

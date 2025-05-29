@@ -11,7 +11,7 @@ import { Inputs, TransactionSchema } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormError } from "@/components/form-error";
-import { createTransaction } from "@/lib/actions";
+import { createTransaction, updateTransaction } from "@/lib/actions";
 
 
 type TransactionFormProps = {
@@ -35,7 +35,8 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
             ...initialData,
             created_at: new Date(initialData.created_at).toISOString().split('T')[0]
         } : {
-            created_at: new Date().toISOString().split('T')[0]
+            created_at: ""
+            //created_at: new Date().toISOString().split('T')[0]
         }
     });
 
@@ -51,18 +52,15 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
         setLastError(null);
         try {
             if (editing) {
-                /*
                 await updateTransaction(
                     id as string,
                     data
                 )
-                */
                 console.log(id);
             } else {
                 
                 console.log(data);
                 await createTransaction(data);
-                //console.log("successfully add transaciton into json file");
             }
             //await purseTransctionListCache()
             router.push('/dashboard');
