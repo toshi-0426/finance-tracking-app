@@ -19,6 +19,10 @@ export default async function Page({
     const range: RangeType = rangeTypes.includes(rawRange as RangeType) ? rawRange as RangeType : 'last30days';
     //console.log(range);
 
+    //const supabase = await createClient();
+    //console.log(await supabase.auth.getUser());
+
+
     return (
         <div className="space-y-8">  
 

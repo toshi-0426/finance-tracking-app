@@ -3,7 +3,8 @@
 import { Inputs, TransactionSchema } from "./validation"
 import { createClient } from "./supabase/server";
 import { revalidatePath } from "next/cache";
-import { RangeType } from "./consts";
+import { FormState, RangeType } from "./consts";
+import { redirect } from "next/navigation";
 
 
 export async function createTransaction(formData: Inputs) {
@@ -75,4 +76,53 @@ export async function updateTransaction(id: string, formData: Inputs) {
   } 
 
   revalidatePath('/dashboard');
+}
+
+
+export async function login(
+  prevState: FormState, 
+  formData: FormData
+){
+  const email = formData.get('email');
+  console.log(email);
+
+  if (!email || typeof email !== 'string'){
+    return {
+      error: true,
+      message: 'Invalid email'
+    }
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      shouldCreateUser: true,
+    }
+  });
+
+  if (error) {
+    return {
+      error: true,
+      message: error.message || 'Error Authenticating'
+    };
+  };
+
+  return {
+    error: false,
+    message: `Email sent to ${email}`
+  };
+}
+
+
+export async function signOut() {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.error('Sing-out Error', error);
+    return;
+  };
+
+  redirect("/login");
 }
