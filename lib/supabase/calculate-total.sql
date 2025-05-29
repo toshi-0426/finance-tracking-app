@@ -13,6 +13,7 @@ begin
     when range_arg = 'last24hours' then currentEnd - interval '24 hours'
     when range_arg = 'last7days' then currentEnd - interval '7 days'
     when range_arg = 'last30days' then currentEnd - interval '30 days'
+    when range_arg = 'last3months' then currentEnd - interval '3 months'
     when range_arg = 'last6months' then currentEnd - interval '6 months'
     when range_arg = 'last12months' then currentEnd - interval '12 months'
     else currentEnd - interval '30 days'

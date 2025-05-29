@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import TransactionList from "./components/transaction-list";
 import TransactionListFallback from "./components/transaction-list-fallback";
 import Trend from "./components/trend";
 import TrendFallback from "./components/trend-fallback";
@@ -7,30 +6,39 @@ import Link from "next/link";
 import { CirclePlus } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
 import { ErrorBoundary } from "react-error-boundary";
-import { types as trendTypes } from "@/lib/consts";
+import { RangeType, rangeTypes, types as trendTypes } from "@/lib/consts";
 import Range from "./components/range";
-//import { createClient } from "@/lib/supabase/server";
+import TransactionListWrapper from "./components/transaction-list-wrapper";
 
-export default async function Page() {
-    
+
+export default async function Page({
+    searchParams
+}: { searchParams?: Promise<{ range?: string }>}) {
+    const searchparams = await searchParams;
+    const rawRange = searchparams?.range;
+    const range: RangeType = rangeTypes.includes(rawRange as RangeType) ? rawRange as RangeType : 'last30days';
+    //console.log(range);
+
     return (
         <div className="space-y-8">  
 
-            <section className="mb-8 flex justify-between items-center">
+            <section className="flex justify-between items-center">
                 <h1 className="text-4xl font-semibold">Summary</h1>
                 <aside>
-                    <Range/>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Range/>
+                    </Suspense>
                 </aside>
 
             </section>
 
-            <section className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            <section className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {trendTypes.map(type => <ErrorBoundary 
                     key={type}
                     fallback={<div className="text-red-500">Cannot fetch {type} trend data</div>}
                     >
                     <Suspense fallback={<TrendFallback />}>
-                        <Trend type={type} />
+                        <Trend type={type} range={range}/>
                     </Suspense>
                 </ErrorBoundary> )}
                 
@@ -46,7 +54,7 @@ export default async function Page() {
             </section>
 
             <Suspense fallback={<TransactionListFallback />}>
-                <TransactionList />
+                <TransactionListWrapper range={range}/>
             </Suspense>
         </div>
     )

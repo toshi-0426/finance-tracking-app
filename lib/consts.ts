@@ -24,6 +24,7 @@ export const rangeTypes = [
   'last24hours',
   'last7days',
   'last30days',
+  'last3months',
   'last6months',
   'last12months',
 ] as const;

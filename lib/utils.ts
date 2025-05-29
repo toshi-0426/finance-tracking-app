@@ -23,3 +23,9 @@ export const groupAndSumTransactionsByDate = (
     }
     return grouped;
 }
+
+
+export function parseYearMonthDate(date: string): Date {
+    const [year, month, dAte] = date.split('-').map(Number);
+    return new Date(year, month, dAte);
+};
