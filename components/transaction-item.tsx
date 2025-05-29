@@ -1,25 +1,28 @@
 import { useFormatCurrency } from "@/hooks/use-format-currency";
 import { TransactionType } from "@/lib/consts";
 //import { sizes, variants } from "@/lib/variants";
-import { HandCoins, Landmark, PiggyBank, Wallet } from "lucide-react";
+import { HandCoins, Landmark, PiggyBank, SquarePen, Wallet } from "lucide-react";
+import TransactionItemRemoveButton from "./transaction-item-remove-button";
+import Link from "next/link";
+import { sizes, variants } from "@/lib/variants";
 //import Link from "next/link";
 
 type TransactionItemProps = {
-    //id: number,
+    id: string,
     type: TransactionType,
     category?: string,
     description: string,
     amount: number,
-    //onRemoved: (id: number) => void;
+    onRemoved: (id: string) => void;
 }
 
 export default function TransactionItem({
-    //id,
+    id,
     type,
     category,
     description,
     amount,
-    //onRemoved
+    onRemoved
 }: TransactionItemProps){
     const typesMap = {
         'Income': {
@@ -57,8 +60,6 @@ export default function TransactionItem({
             </div>
 
             <div className="min-w-[70px] text-right">{formattedAmount}</div>
-            <div className="min-w-[50px] flex justify-end">···</div>
-            {/* 
             <div className="min-w-[100px] flex justify-end items-center space-x-4">
                 <Link href={`/dashboard/transaction/${id}/edit`}
                       className={`${variants['ghost']} ${sizes['xs']}`}
@@ -67,7 +68,6 @@ export default function TransactionItem({
                 </Link>
                 <TransactionItemRemoveButton id={id} onRemoved={onRemoved}/>
             </div>
-            */}
         </div>
     )
 }

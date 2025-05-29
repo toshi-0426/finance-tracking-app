@@ -32,7 +32,7 @@ export const rangeTypes = [
 export type RangeType = typeof rangeTypes[number];
 
 export interface Transaction {
-    id: number,
+    id: string,
     amount: number, 
     type: TransactionType,
     description: string,

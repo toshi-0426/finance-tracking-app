@@ -5,7 +5,7 @@ import PageHeader from "@/components/page-header";
 import Select from "@/components/select";
 import Separator from "@/components/separator";
 import Skelton from "@/components/skelton";
-import TransactionItem from "@/components/transaction-item";
+//import TransactionItem from "@/components/transaction-item";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Trend from "@/components/trend";
 import { Metadata } from "next";
@@ -43,10 +43,12 @@ export default function Playground() {
                 <h2 className="mb-4 text-lg font-mono">Tansaction Item</h2>
                 <Separator />
                 <div className="space-y-2">
+                    {/* 
                     <TransactionItem type="Income" description="Salary" amount={2000} />
                     <TransactionItem type="Expense" category="Food" description="Going out to eat" amount={29} />
                     <TransactionItem type="Investment" description="In Microsoft" amount={500} />
                     <TransactionItem type="Saving" description="For children" amount={2000} />
+                    */}
                 </div>
             </div>
 
@@ -57,10 +59,12 @@ export default function Playground() {
                 <div className="space-y-4">
                     <TransactionSummaryItem date={new Date(2025, 5, 4)} amount={3500}/>
                     <hr className="mb-4 border-gray-400 dark:border-gray-800"/>
+                    {/*
                     <TransactionItem type="Income" description="Salary" amount={2000} />
                     <TransactionItem type="Expense" category="Food" description="Going out to eat" amount={29} />
                     <TransactionItem type="Investment" description="In Microsoft" amount={500} />
                     <TransactionItem type="Saving" description="For children" amount={2000} />
+                    */}
                 </div>
             </div>
 

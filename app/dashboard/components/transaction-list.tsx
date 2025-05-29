@@ -36,6 +36,11 @@ export default function TransactionList ({
         }
     }
 
+    const handleRemoved = (id: string) => {
+        setTransactions(prev => prev.filter((t: Transaction) => t.id !== id));
+        console.log(id);
+    }   
+
 
     return (
         <section className="space-y-4">
@@ -50,7 +55,7 @@ export default function TransactionList ({
                         <section className="space-y-2">
                             
                             {transactions.map(transaction => <div key={`${transaction.id}-${date}`}>
-                                <TransactionItem {...transaction} />
+                                <TransactionItem {...transaction} onRemoved={handleRemoved} />
                             </div>)}
                         </section>
                     </div>
