@@ -5,6 +5,8 @@ import FileInput from "../components/file-input";
 import { ChangeEvent, useActionState, useState } from "react";
 import { FormState } from "@/lib/consts";
 import { uploadAvatar } from "@/lib/actions";
+import Alert from "@/components/Alert";
+import { Ban, Check } from "lucide-react";
 
 const initialState: FormState = {
     message: "",
@@ -51,6 +53,23 @@ export default function Page() {
             </h1>
 
             <form className="space-y-4" action={formAction} >
+                {state?.error &&
+                    <Alert 
+                        icon={<Ban className="text-red-700 dark:text-red-300 w-6 h-6" />} 
+                        title={<span className="text-red-700 dark:text-red-300">Hello</span>}
+                    >
+                        <span className="text-red-700 dark:text-red-300">Hello</span>
+                    </Alert>
+                }
+                {!state?.error && state?.message.length > 0 && 
+                    <Alert 
+                        icon={<Check className="text-green-700 dark:text-green-300 w-6 h-6" />}
+                        title={<span className="text-green-700 dark:text-green-300">Hello</span>}
+                    >
+                        <span className="text-green-700 dark:text-green-300">Hello</span>
+                    </Alert>
+                }
+                
                 <FileInput 
                     type="file" 
                     name="file" 

@@ -5,7 +5,6 @@ import Image from "next/image";
 export default async function Avatar({ width=32, height=32 }){
     const supabase = await createClient();
     const { data: {user} } = await supabase.auth.getUser();
-    //console.log(user);
     const { data: imageData, error } = await supabase.storage 
         .from('avatars')
         .createSignedUrl(user?.user_metadata.avatar, 60 * 5, {
@@ -19,8 +18,6 @@ export default async function Avatar({ width=32, height=32 }){
         return <CircleUserRound className="w-6 h-6"/>
     };
 
-    console.log(imageData);
-    console.log(imageData?.signedUrl);
     return (
         <div className="rounded-full overflow-hidden w-[width] h-[width]">
             <Image 

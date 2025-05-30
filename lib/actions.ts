@@ -134,7 +134,6 @@ export async function uploadAvatar(
 ){
   const supabase = await createClient();
   const file = formData.get('file') as File;
-  console.log(file);
 
   if (!file) {
     return {
@@ -159,7 +158,7 @@ export async function uploadAvatar(
 
   const fileExtension = file.name.split('.').pop();
   const filename = `${Math.random()}.${fileExtension}`;
-  console.log("filename: ", filename);
+  //console.log("filename: ", filename);
 
   const { error } = await supabase.storage 
         .from('avatars')
@@ -172,7 +171,6 @@ export async function uploadAvatar(
     };
   }
 
-  console.log('Success Uploading avatar');
 
   const { error: dataUpdateError } = await supabase.auth.updateUser({
     data: {
@@ -189,6 +187,6 @@ export async function uploadAvatar(
 
   return {
     error: false,
-    message: 'Success Updating user'
+    message: 'Updated the user avatar'
   }
 }
