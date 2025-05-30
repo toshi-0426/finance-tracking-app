@@ -171,6 +171,34 @@ export async function uploadAvatar(
     };
   }
 
+  // delete avatar
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  if (userError) {
+    return {
+      error: true,
+      message: 'Something went wrong, try again'
+    }
+  }
+  console.log(userData);
+  console.log(userData.user);
+  console.log(userData.user.user_metadata);
+  console.log(userData.user.user_metadata.avatar);
+  const avatar = userData.user.user_metadata.avatar
+
+  if (avatar) {
+    const { error } = await supabase.storage
+                        .from('avatars')
+                        .remove([avatar]);
+    
+    if (error) {
+      return {
+        error: true,
+        message: 'Failed deleting the old avatar'
+      }
+    }
+  }
+
 
   const { error: dataUpdateError } = await supabase.auth.updateUser({
     data: {
