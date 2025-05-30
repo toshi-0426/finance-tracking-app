@@ -9,6 +9,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { RangeType, rangeTypes, types as trendTypes } from "@/lib/consts";
 import Range from "./components/range";
 import TransactionListWrapper from "./components/transaction-list-wrapper";
+//import { createClient } from "@/lib/supabase/server";
 
 
 export default async function Page({
@@ -20,7 +21,8 @@ export default async function Page({
     //console.log(range);
 
     //const supabase = await createClient();
-    //console.log(await supabase.auth.getUser());
+    //const {data: {user}} = await supabase.auth.getUser();
+    //console.log(user);
 
 
     return (

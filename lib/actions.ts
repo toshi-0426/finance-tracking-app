@@ -126,3 +126,69 @@ export async function signOut() {
 
   redirect("/login");
 }
+
+
+export async function uploadAvatar(
+  prevState: FormState, 
+  formData: FormData
+){
+  const supabase = await createClient();
+  const file = formData.get('file') as File;
+  console.log(file);
+
+  if (!file) {
+    return {
+      error: true,
+      message: "No file uploaded"
+    }
+  }
+
+  if (!['image/jpeg', 'image/png'].includes(file.type)) {
+    return {
+      error: true,
+      message: "Only JPEG or PNG files are allowed"
+    };
+  }
+
+  if (file.size > 512 * 1024) {
+    return {
+      error: true,
+      message: "ile size must be less than 512 KB"
+    };
+  }
+
+  const fileExtension = file.name.split('.').pop();
+  const filename = `${Math.random()}.${fileExtension}`;
+  console.log("filename: ", filename);
+
+  const { error } = await supabase.storage 
+        .from('avatars')
+        .upload(filename, file);
+
+  if (error) {
+    return {
+      error: true,
+      message: 'Error Uploading avatar'
+    };
+  }
+
+  console.log('Success Uploading avatar');
+
+  const { error: dataUpdateError } = await supabase.auth.updateUser({
+    data: {
+      avatar: filename
+    }
+  })
+
+  if (dataUpdateError) {
+    return {
+      error: true,
+      message: 'Error associating the avatar with the user'
+    };
+  }
+
+  return {
+    error: false,
+    message: 'Success Updating user'
+  }
+}

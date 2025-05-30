@@ -5,6 +5,7 @@ import Button from "./button";
 import { CircleUserRound, KeyRound } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
 import SignOutButton from "./sign-out-button";
+import Avatar from "./avatar";
 
 type PageHeaderProps = {
   className?: string
@@ -28,10 +29,12 @@ export default async function PageHeader({className = ''}: PageHeaderProps) {
                 </Link>
                 <div className='flex items-center'>
                     <div><ThemeSwitch/></div>  
-                    {user && <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                            <CircleUserRound className="w-6 h-6"/>
-                            <span>{user?.email}</span>
-                        </Button>}  
+                    {user && <Link href="/dashboard/settings" 
+                                className={`flex items-center space-x-2 ${variants['ghost']} ${sizes['sm']}`} >
+                        <Avatar />
+                        <span>{user?.email}</span>
+                        
+                    </Link>}  
                     {user && <SignOutButton />}
                     {!user && <Link href="/login" className={`${variants['ghost']} ${sizes['sm']}`}>
                         <KeyRound className="h-6 w-6"/>
