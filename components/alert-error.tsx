@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
-import Alert from "./Alert";
+
 import { Ban } from "lucide-react";
+import Alert from "./alert";
 
 export default function AlertError({children}: {children:ReactNode}){
     return <Alert 

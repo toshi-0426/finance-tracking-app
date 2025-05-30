@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Alert from "./Alert";
+import Alert from "./alert";
 import { Check } from "lucide-react";
 
 export default function AlertSuccess({children}: {children:ReactNode}){

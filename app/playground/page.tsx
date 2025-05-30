@@ -4,8 +4,7 @@ import Label from "@/components/label";
 import PageHeader from "@/components/page-header";
 import Select from "@/components/select";
 import Separator from "@/components/separator";
-import Skelton from "@/components/skelton";
-//import TransactionItem from "@/components/transaction-item";
+import Skeleton from "@/components/skeleton";
 import TransactionSummaryItem from "@/components/transaction-summary-item";
 import Trend from "@/components/trend";
 import { Metadata } from "next";
@@ -111,19 +110,19 @@ export default function Playground() {
             </div>
             
             <div>
-                <h2 className="mb-4 text-lg font-mono">Loading Skelton</h2>
+                <h2 className="mb-4 text-lg font-mono">Loading Skeleton</h2>
                 <Separator />
                 <div className="space-y-8">
                     <div className="flex space-x-4">
-                        <Skelton />
-                        <Skelton />
-                        <Skelton />
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
                     </div>   
 
                     <div className="space-y-4">
-                        <Skelton />
-                        <Skelton />
-                        <Skelton />      
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />      
                     </div>
                 </div>
             </div>

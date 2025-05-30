@@ -21,7 +21,6 @@ export default function Page() {
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         setError(false);
         const file = event.target.files?.[0] || null;
-        console.log(file);
         if (!file) {
             return;
         }

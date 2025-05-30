@@ -9,21 +9,33 @@ import { ErrorBoundary } from "react-error-boundary";
 import { RangeType, rangeTypes, types as trendTypes } from "@/lib/consts";
 import Range from "./components/range";
 import TransactionListWrapper from "./components/transaction-list-wrapper";
-//import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
+import { getUserProfileRange, insertUserProfile } from "@/lib/actions";
 
+
+export const dynamic = 'force-dynamic';  
 
 export default async function Page({
     searchParams
 }: { searchParams?: Promise<{ range?: string }>}) {
     const searchparams = await searchParams;
     const rawRange = searchparams?.range;
-    const range: RangeType = rangeTypes.includes(rawRange as RangeType) ? rawRange as RangeType : 'last30days';
+    //const range: RangeType = rangeTypes.includes(rawRange as RangeType) ? rawRange as RangeType : 'last30days';
     //console.log(range);
 
-    //const supabase = await createClient();
-    //const {data: {user}} = await supabase.auth.getUser();
-    //console.log(user);
-
+    const supabase = await createClient();
+    const {data: {user}} = await supabase.auth.getUser();
+    if (!user || !user.email){
+        throw new Error("User is not authenticated or user's email is not identified");
+    }
+    
+    const user_id = user.id;
+    const user_email = user.email;
+    await insertUserProfile(user_id, user_email);
+    const defaultRange = await getUserProfileRange(user_id);
+    //console.log(defaultRange);
+    const range: RangeType = rangeTypes.includes(rawRange as RangeType) ? rawRange as RangeType : defaultRange as RangeType;
+    //console.log("range; ", range);
 
     return (
         <div className="space-y-8">  
@@ -32,7 +44,7 @@ export default async function Page({
                 <h1 className="text-4xl font-semibold">Summary</h1>
                 <aside>
                     <Suspense fallback={<div>Loading...</div>}>
-                        <Range/>
+                        <Range defaultRange={defaultRange}/>
                     </Suspense>
                 </aside>
 

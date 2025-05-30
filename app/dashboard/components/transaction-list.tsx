@@ -38,7 +38,6 @@ export default function TransactionList ({
 
     const handleRemoved = (id: string) => {
         setTransactions(prev => prev.filter((t: Transaction) => t.id !== id));
-        console.log(id);
     }   
 
 

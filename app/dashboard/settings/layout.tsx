@@ -1,6 +1,6 @@
 import React from "react"
 import SideNavigation from "./components/side-nav";
-import BackButton from "@/components/back-button";
+import BackButtonToDashboard from "@/components/back-button-to-dashboard";
 
 
 export const metadata = {
@@ -14,12 +14,12 @@ type LayoutProps= {
 export default function Layout({ children }: LayoutProps) {
     return (
         <>
-            <BackButton className="mb-8" />
+            <BackButtonToDashboard className="mb-8" />
             <div className="grid grid-cols-4 gap-8">
-                <aside>
+                <aside className="col-span-4 lg:col-span-1">
                     <SideNavigation />
                 </aside>
-                <div className="col-span-3">
+                <div className="col-span-4 lg:col-span-3">
                     {children}
                 </div>
             </div>

@@ -14,7 +14,6 @@ type TransactionItemRemoveButtonProps = {
 export default function TransactionItemRemoveButton({ id, onRemoved }: TransactionItemRemoveButtonProps) {
     const [loading, setLoading] = useState(false);
     const [conformed, setComformed] = useState(false);
-    //console.log(id);
 
     const handleClick = async () => {
         if (!conformed) {
@@ -24,12 +23,10 @@ export default function TransactionItemRemoveButton({ id, onRemoved }: Transacti
         try {
             setLoading(true);
             await deleteTransaction(id);
-            // notify the parent
             onRemoved(id);
         } finally {
             setLoading(false);
-        }
-        
+        } 
     }
 
     return <Button key={id}

@@ -1,6 +1,6 @@
 'use server'
 
-import { Inputs, TransactionSchema } from "./validation"
+import { Inputs, SettingsFormSchema, TransactionSchema } from "./validation"
 import { createClient } from "./supabase/server";
 import { revalidatePath } from "next/cache";
 import { FormState, RangeType } from "./consts";
@@ -14,7 +14,6 @@ export async function createTransaction(formData: Inputs) {
         throw new Error('Invalid data form')
     }
     
-    console.log(validated);
     const supabase = await createClient();
     const { error } = await supabase.from('transactions').insert(validated.data);
 
@@ -84,7 +83,7 @@ export async function login(
   formData: FormData
 ){
   const email = formData.get('email');
-  console.log(email);
+  //console.log(email);
 
   if (!email || typeof email !== 'string'){
     return {
@@ -180,10 +179,10 @@ export async function uploadAvatar(
       message: 'Something went wrong, try again'
     }
   }
-  console.log(userData);
-  console.log(userData.user);
-  console.log(userData.user.user_metadata);
-  console.log(userData.user.user_metadata.avatar);
+  //console.log(userData);
+  //console.log(userData.user);
+  //console.log(userData.user.user_metadata);
+  //console.log(userData.user.user_metadata.avatar);
   const avatar = userData.user.user_metadata.avatar
 
   if (avatar) {
@@ -217,4 +216,148 @@ export async function uploadAvatar(
     error: false,
     message: 'Updated the user avatar'
   }
+}
+
+export async function updateSettings(
+  prevState: FormState, 
+  formData: FormData
+){
+  //console.log(prevState);
+  //console.log(formData);
+  //console.log(formData.get('username'));
+  //console.log(formData.get('defaultView'))
+  const username = formData.get('username');
+  const defaultView = formData.get('defaultView');
+  console.log("username: ", username);
+  console.log('default View: ', defaultView);
+
+  
+  const validated = SettingsFormSchema.safeParse({
+    username: username,
+    defaultView: defaultView,
+  })
+
+  if (!validated.success){
+    console.log(validated.error.flatten().fieldErrors);
+    return {
+      error: true,
+      message: "Invalid username",
+      errors: validated.error.flatten().fieldErrors
+    }
+
+  }
+  const { username: validUsername, defaultView: validRange } = validated.data;
+
+  const supabase = await createClient();
+
+  const {data, error} = await supabase.auth.getUser();
+
+  if (error) {
+    return {
+      error: true,
+      message: "Something went wrong. Try again."
+    }
+  }
+
+  //console.log("user ID: ",data.user.id);
+  const user_id = data.user.id;
+  console.log("user ID: ", user_id);
+  
+  const { error: updateError } = await supabase
+                      .from('profiles')
+                      .update({ 
+                        username: validUsername,
+                        range: validRange,
+                        updated_at: new Date().toISOString()
+                      })
+                      .eq('user_id', user_id);
+  
+
+  if (updateError) {
+    return {
+      error: true,
+      message: 'Failed updating setting'
+    }
+  }
+
+
+  return {
+    error: false,
+    message: "Updated user settings"
+  }
+}
+
+export async function insertUserProfile(
+  user_id: string, email: string
+){
+  //console.log(user_id);
+  //console.log(email);
+
+  const supabase = await createClient();
+  const { data } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', user_id)
+                    .single();
+
+  //console.log(data);
+
+  if (!data) {
+    await supabase.from('profiles').insert({
+      user_id: user_id,                             
+      username: email.split('@')[0],
+      range: 'last30days',
+      updated_at: new Date().toISOString(),
+    });
+    //console.log("Successfully inserting user's profile data")
+  } else {
+    //console.log("User profile data is already in the profiles table")
+  }
+}
+
+export async function getUserProfileRange(user_id: string){
+  //console.log(user_id);
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('profiles')
+                            .select('range')
+                            .eq('user_id', user_id)
+                            .single();
+
+  if (error || !data) {
+    throw new Error('No range data found');
+  }
+
+  return data.range;
+}
+
+export async function getUserProfileUsername(user_id: string){
+  //console.log(user_id);
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('profiles')
+                            .select('username')
+                            .eq('user_id', user_id)
+                            .single();
+
+  if (error || !data) {
+    throw new Error('No range data found');
+  }
+
+  return data.username;
+}
+
+
+export async function getUserProfile(user_id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('profiles')
+                            .select('*')
+                            .eq('user_id', user_id)
+                            .single();
+
+  if (error || !data) {
+    throw new Error('No range data found');
+  }
+
+  return data;
 }

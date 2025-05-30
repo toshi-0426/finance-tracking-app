@@ -36,7 +36,6 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
             created_at: new Date(initialData.created_at).toISOString().split('T')[0]
         } : {
             created_at: ""
-            //created_at: new Date().toISOString().split('T')[0]
         }
     });
 
@@ -47,7 +46,6 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
     const editing = Boolean(initialData);
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        console.log(data)
         setIsSaving(true);
         setLastError(null);
         try {
@@ -62,7 +60,6 @@ export default function TransactionForm({id, initialData}: TransactionFormProps)
                 console.log(data);
                 await createTransaction(data);
             }
-            //await purseTransctionListCache()
             router.push('/dashboard');
         } catch(error) {
             setLastError(error as Error);

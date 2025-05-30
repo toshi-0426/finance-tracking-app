@@ -1,4 +1,4 @@
-import Skelton from "@/components/skelton";
+import Skelton from "@/components/skeleton";
 
 export default function TrendFallback(){
     return (

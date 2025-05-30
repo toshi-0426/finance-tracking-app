@@ -1,9 +1,6 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
-/*
-type FormErrorProps = {
-    error?: string | FieldError | FieldErrors | Error | null | undefined
-}*/
+
 
 type FormErrorType =
   | string

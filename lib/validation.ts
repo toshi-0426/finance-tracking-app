@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { categories, TransactionCategory, types } from './consts';
+import { categories, rangeTypes, TransactionCategory, types } from './consts';
 
 export const TransactionSchema = z.object({
   type: z.enum(types, {
@@ -7,7 +7,6 @@ export const TransactionSchema = z.object({
   }),
   category: z.preprocess(
     (val) => (typeof val === 'string' && val?.length ? val: undefined), 
-    //z.string().optional()
     z.enum(categories).optional()
   ),
   amount: z.coerce.number({
@@ -36,3 +35,10 @@ export const TransactionSchema = z.object({
 })
 
 export type Inputs = z.infer<typeof TransactionSchema>;
+
+
+
+export const SettingsFormSchema = z.object({
+  username: z.string().min(1),
+  defaultView: z.enum(rangeTypes)
+})

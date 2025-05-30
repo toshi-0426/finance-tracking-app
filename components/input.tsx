@@ -11,8 +11,6 @@ export default function Input(props:InputProps) {
 
     const key = type === "checkbox" ? "checkbox" : "text";
 
-
-
     return <input {...rest} key={key} type={key} className={`${styles[key]} ${className ?? ""}`}
             />
 
