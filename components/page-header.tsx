@@ -32,7 +32,7 @@ export default async function PageHeader({className = ''}: PageHeaderProps) {
                 <Link href="/dashboard" 
                     className='text-xl hover:underline hover:underline-offset-8 decoration-2'
                 >
-                    Finance App
+                    Finance Tracker
                 </Link>
                 <div className='flex items-center'>
                     <div><ThemeSwitch/></div>  

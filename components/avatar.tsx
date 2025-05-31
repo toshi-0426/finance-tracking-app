@@ -25,6 +25,7 @@ export default async function Avatar({ width=32, height=32 }){
                     width={width} 
                     height={height} 
                     alt="User Avatar"
+                    priority={true}
                 />
         </div>
     )

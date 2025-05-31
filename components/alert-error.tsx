@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-
 import { Ban } from "lucide-react";
 import Alert from "./alert";
 

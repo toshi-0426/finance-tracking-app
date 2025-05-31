@@ -49,7 +49,7 @@ export default function Trend({ type, amount, prevAmount}: TrendProps){
                 {percentageChange <= 0 && <ArrowDownLeft className="text-red-700 dark:text-red-300" />}
                 {percentageChange > 0 && <ArrowUpRight className="text-green-700 dark:text-green-300" />}
                 {percentageChangeStr}% vs last period
-            </div>
+            </div>t
         </div>
     );
 }
