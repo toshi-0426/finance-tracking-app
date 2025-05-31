@@ -6,8 +6,8 @@ import { inter } from "./fonts";
 
 export const metadata: Metadata = {
   title: {
-    default: "Finance App",
-    template: "%s | Finance App",
+    default: "Finance Tracker",
+    template: "%s | Finance Tracker",
   },
   description: "Track your personal expenses and analyze spending trends—all in one modern dashboard",
   icons: {

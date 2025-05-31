@@ -20,8 +20,6 @@ export default async function Page({
 }: { searchParams?: Promise<{ range?: string }>}) {
     const searchparams = await searchParams;
     const rawRange = searchparams?.range;
-    //const range: RangeType = rangeTypes.includes(rawRange as RangeType) ? rawRange as RangeType : 'last30days';
-    //console.log(range);
 
     const supabase = await createClient();
     const {data: {user}} = await supabase.auth.getUser();
@@ -33,9 +31,7 @@ export default async function Page({
     const user_email = user.email;
     await insertUserProfile(user_id, user_email);
     const defaultRange = await getUserProfileRange(user_id);
-    //console.log(defaultRange);
     const range: RangeType = rangeTypes.includes(rawRange as RangeType) ? rawRange as RangeType : defaultRange as RangeType;
-    //console.log("range; ", range);
 
     return (
         <div className="space-y-8">  

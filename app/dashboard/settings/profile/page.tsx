@@ -4,11 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 export default async function Page() {
     const supabase = await createClient();
     const { data } = await supabase.auth.getUser();
-    //console.log(data);
-    //console.log(data?.user?.email)
     const email: string = data?.user?.email || 'undefine';
 
-    //console.log(data?.user?.id);
     const user_id = data?.user?.id;
 
     const { data: profile } = await supabase
@@ -18,8 +15,6 @@ export default async function Page() {
         .single();
     
     const username = profile!.username!;
-    //console.log(username);
-
 
     return (
         <>

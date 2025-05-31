@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 export const metadata: Metadata = {
   title: {
     default: "Dashboard",
-    template: "%s | Finance App",
+    template: "%s | Finance Tracker",
   }
 };
 
