@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
   if (code) {
     console.log('✅ Code present, attempting verification with exchangeCodeForSession')
     
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
     /*
     console.log('🔐 Code verification result:', { 
       success: !error, 
