@@ -28,7 +28,8 @@ export default function RootLayout({
         className={`${inter.className} antialiased min-h-screen flex flex-col px-8`}
       > 
         <ThemeProviders>
-          {children}
+          
+            {children}
         </ThemeProviders>
       </body>
     </html>

@@ -83,7 +83,6 @@ export async function login(
   formData: FormData
 ){
   const email = formData.get('email');
-  //console.log(email);
 
   if (!email || typeof email !== 'string'){
     return {
@@ -97,6 +96,7 @@ export async function login(
     email,
     options: {
       shouldCreateUser: true,
+      emailRedirectTo: 'http://localhost:3000/auth/confirm',
     }
   });
 
@@ -157,7 +157,6 @@ export async function uploadAvatar(
 
   const fileExtension = file.name.split('.').pop();
   const filename = `${Math.random()}.${fileExtension}`;
-  //console.log("filename: ", filename);
 
   const { error } = await supabase.storage 
         .from('avatars')
@@ -179,10 +178,7 @@ export async function uploadAvatar(
       message: 'Something went wrong, try again'
     }
   }
-  //console.log(userData);
-  //console.log(userData.user);
-  //console.log(userData.user.user_metadata);
-  //console.log(userData.user.user_metadata.avatar);
+
   const avatar = userData.user.user_metadata.avatar
 
   if (avatar) {
@@ -222,15 +218,8 @@ export async function updateSettings(
   prevState: FormState, 
   formData: FormData
 ){
-  //console.log(prevState);
-  //console.log(formData);
-  //console.log(formData.get('username'));
-  //console.log(formData.get('defaultView'))
   const username = formData.get('username');
   const defaultView = formData.get('defaultView');
-  console.log("username: ", username);
-  console.log('default View: ', defaultView);
-
   
   const validated = SettingsFormSchema.safeParse({
     username: username,
@@ -238,7 +227,6 @@ export async function updateSettings(
   })
 
   if (!validated.success){
-    console.log(validated.error.flatten().fieldErrors);
     return {
       error: true,
       message: "Invalid username",
@@ -259,9 +247,7 @@ export async function updateSettings(
     }
   }
 
-  //console.log("user ID: ",data.user.id);
   const user_id = data.user.id;
-  console.log("user ID: ", user_id);
   
   const { error: updateError } = await supabase
                       .from('profiles')
@@ -290,8 +276,6 @@ export async function updateSettings(
 export async function insertUserProfile(
   user_id: string, email: string
 ){
-  //console.log(user_id);
-  //console.log(email);
 
   const supabase = await createClient();
   const { data } = await supabase
@@ -300,8 +284,6 @@ export async function insertUserProfile(
                     .eq('user_id', user_id)
                     .single();
 
-  //console.log(data);
-
   if (!data) {
     await supabase.from('profiles').insert({
       user_id: user_id,                             
@@ -309,14 +291,12 @@ export async function insertUserProfile(
       range: 'last30days',
       updated_at: new Date().toISOString(),
     });
-    //console.log("Successfully inserting user's profile data")
   } else {
     //console.log("User profile data is already in the profiles table")
   }
 }
 
 export async function getUserProfileRange(user_id: string){
-  //console.log(user_id);
 
   const supabase = await createClient();
   const { data, error } = await supabase.from('profiles')
@@ -332,9 +312,9 @@ export async function getUserProfileRange(user_id: string){
 }
 
 export async function getUserProfileUsername(user_id: string){
-  //console.log(user_id);
 
   const supabase = await createClient();
+  await new Promise(resolve => setTimeout(resolve, 1000));
   const { data, error } = await supabase.from('profiles')
                             .select('username')
                             .eq('user_id', user_id)
