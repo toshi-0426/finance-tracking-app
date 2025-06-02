@@ -41,7 +41,8 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/auth')
+    !request.nextUrl.pathname.startsWith('/auth') &&
+    request.nextUrl.pathname !== '/' 
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
@@ -52,7 +53,8 @@ export async function updateSession(request: NextRequest) {
   
 
   if (
-    user && ( request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.endsWith('/') )
+    user && 
+    ( request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname === '/' )
   ) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
