@@ -92,11 +92,12 @@ export async function login(
   }
 
   const supabase = await createClient();
+  const redirectURL = `${process.env.NEXT_PUBLIC_APP_URL}/auth/confirm`
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: true,
-      emailRedirectTo: 'http://localhost:3000/auth/confirm',
+      emailRedirectTo: redirectURL//'http://localhost:3000/auth/confirm',
     }
   });
 
