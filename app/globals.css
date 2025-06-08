@@ -1,7 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/forms";
 @custom-variant dark (&:where(.dark, .dark *));
-
 
 body {
   @apply container mx-auto max-w-4xl bg-white dark:bg-slate-950 dark:text-slate-100;

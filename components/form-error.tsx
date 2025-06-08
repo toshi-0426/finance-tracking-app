@@ -1,7 +1,6 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 
-
 type FormErrorType =
   | string
   | Error
@@ -14,24 +13,24 @@ type Props = {
   error: FormErrorType;
 };
 
-export function FormError({error}: Props ) {
-    if (!error) return null;
+export function FormError({ error }: Props) {
+  if (!error) return null;
 
-    let message: string | undefined;
+  let message: string | undefined;
 
-    if (typeof error === 'string') {
-        message = error;
-    } else if (error instanceof Error) {
-        message = error.message;
-    } else if (
-        typeof error === 'object' &&
-        'message' in error &&
-        typeof error.message === 'string'
-    ) {
-        message = error.message;
-    }
+  if (typeof error === 'string') {
+    message = error;
+  } else if (error instanceof Error) {
+    message = error.message;
+  } else if (
+    typeof error === 'object' &&
+    'message' in error &&
+    typeof error.message === 'string'
+  ) {
+    message = error.message;
+  }
 
-    if (!message) return null;
+  if (!message) return null;
 
-    return <p className="text-sm text-red-500">{message}</p>;
+  return <p className="text-sm text-red-500">{message}</p>;
 }

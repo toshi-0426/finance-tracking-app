@@ -1,38 +1,41 @@
-# Finance Tracker
+<div align="center">
+  <div>
+    <h1><img src="./public/icons/finance-app-icon.svg" width="30" alt="Logo" />&nbsp;&nbsp;Finance Tracker</h1>
+  </div>
+  </ hr>
+  <div>
+    <img src="./public/screenshot-demo.png" alt="finance tracker" width="70%" height="70%" />
+  </div>
+</div>
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Overview
 
-## Getting Started
+This is a personal finance tracker app built with TypeScript, Next.js, Tailwind CSS, and Supabase (PostgreSQL).
 
-First, run the development server:
+## Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Here is a working live demo : [https://finance-tracker-app-2025.vercel.app/](https://finance-tracker-app-2025.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+TypeScript, React, Next.js 15 (App Router), Supabase (PostgreSQL + Magic-Link Auth), and Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+- **Magic-Link Authentication**  
+  Enter your email, receive a link, click it, and you will be redirected to the page. no password required.
 
-To learn more about Next.js, take a look at the following resources:
+- **Transaction Dashboard**  
+  Filter transactions by some date ranges such as “Last 7 Days,” “Last 30 Days,” or etc”  
+  If no filter is in the URL, the user’s saved default date range applies.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Responsive Design**  
+  • Mobile: single-column layout
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- TypeScript
+- React
+- Next.js 15 (App Router)
+- Supabase (PostgreSQL + Magic-Link Auth)
+- Tailwind CSS

@@ -1,24 +1,33 @@
-export const types = [
-    'Income', 'Expense', 'Investment', 'Saving'
-] as const;
+export const types = ['Income', 'Expense', 'Investment', 'Saving'] as const;
 
 export const categories = [
-    'Housing', 'Transportation', 'Food', 'Education', 'Phone', 
-    'Utilities', 'Clothes', 'Beauty', 'Socializing', 'Books', 
-    'Insurance', 'Tax', 'Health', 'Alchohol', 'Other'
-]as const;
+  'Housing',
+  'Transportation',
+  'Food',
+  'Education',
+  'Phone',
+  'Utilities',
+  'Clothes',
+  'Beauty',
+  'Socializing',
+  'Books',
+  'Insurance',
+  'Tax',
+  'Health',
+  'Alchohol',
+  'Other',
+] as const;
 
-export type TransactionType = typeof types[number];
-export type TransactionCategory = typeof categories[number];
-
+export type TransactionType = (typeof types)[number];
+export type TransactionCategory = (typeof categories)[number];
 
 export type Inputs = {
-  type: TransactionType,
-  category: TransactionCategory,
-  created_at: string,
-  amount: number,
-  description: string
-}
+  type: TransactionType;
+  category: TransactionCategory;
+  created_at: string;
+  amount: number;
+  description: string;
+};
 
 export const rangeTypes = [
   'last24hours',
@@ -29,18 +38,18 @@ export const rangeTypes = [
   'last12months',
 ] as const;
 
-export type RangeType = typeof rangeTypes[number];
+export type RangeType = (typeof rangeTypes)[number];
 
 export interface Transaction {
-    id: string,
-    amount: number, 
-    type: TransactionType,
-    description: string,
-    category: string,
-    created_at: string
+  id: string;
+  amount: number;
+  type: TransactionType;
+  description: string;
+  category: string;
+  created_at: string;
 }
 
 export interface FormState {
-    message: string,
-    error: boolean
+  message: string;
+  error: boolean;
 }
