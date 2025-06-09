@@ -4,7 +4,7 @@
   </div>
   </ hr>
   <div>
-    <img src="./public/screenshot-demo.png" alt="finance tracker" width="70%" height="70%" />
+    <img src="./public/finance-tracker.png" alt="finance tracker" width="70%" height="70%" />
   </div>
 </div>
 
