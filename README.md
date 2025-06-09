@@ -10,7 +10,9 @@
 
 ## Overview
 
-This is a personal finance tracker app built with TypeScript, Next.js, Tailwind CSS, and Supabase (PostgreSQL).
+This is a finance tracking app that help you to effortlessly monitor your spending.
+Log in via email, view your transaction history across multiple time periods, save your personal preferences—display name, and default date range, so the dashboard always feels like yours.  
+Built with TypeScript, Next.js, Tailwind CSS, and Supabase (PostgreSQL).
 
 ## Demo
 
